@@ -24,7 +24,7 @@ class_names = [
     'SLENDER_MEADOW_KATYKID',
     'SUNDOWNER_MOTH',
     'TROPICAL_TIGER_MOTH',
-    'WANDERING_GLIDER'
+    'WANDERING_GLIDER']
 
 # --- Load Model ---
 @st.cache_resource
