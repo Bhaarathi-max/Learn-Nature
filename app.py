@@ -12,7 +12,7 @@ class_names = [
     'ORIENTAL BEETLE',
     'PLAIN TIGER BUTTERFLY',
     'INDIAN POTTER WASP',
-    'SLENDER MEADOW KATYKID',
+    'SLENDER MEADOW KATYDID',
     'SUNDOWNER MOTH',
     'TROPICAL TIGER MOTH',
     'WANDERING GLIDER']
@@ -39,7 +39,7 @@ model = load_keras_model()
 
 # --- Taxonomy Dictionary ---
 taxonomy = {
-    'BEAN_BUG': {
+    'BEAN BUG': {
         'common_name': 'Bean Bug',
         'species': 'Riptortus pedestris',
         'genus': 'Riptortus',
@@ -49,7 +49,7 @@ taxonomy = {
         'phylum': 'Arthropoda',
         'kingdom': 'Animalia'
     },
-    'COMMON_CROW_BUTTERFLY': {
+    'COMMON CROW BUTTERFLY': {
         'common_name': 'Common Crow Butterfly',
         'species': 'Euploea core',
         'genus': 'Euploea',
@@ -59,7 +59,7 @@ taxonomy = {
         'phylum': 'Arthropoda',
         'kingdom': 'Animalia'
     },
-    'INDIAN_RED_BUG': {
+    'INDIAN RED BUG': {
         'common_name': 'Indian Red Bug',
         'species': 'Dysdercus cingulatus',
         'genus': 'Dysdercus',
@@ -69,7 +69,7 @@ taxonomy = {
         'phylum': 'Arthropoda',
         'kingdom': 'Animalia'
     },
-    'ORIENTAL_BEETLE': {
+    'ORIENTAL BEETLE': {
         'common_name': 'Oriental Beetle',
         'species': 'Anomala orientalis',
         'genus': 'Anomala',
@@ -79,7 +79,7 @@ taxonomy = {
         'phylum': 'Arthropoda',
         'kingdom': 'Animalia'
     },
-    'PLAIN_TIGER_BUTTERFLY': {
+    'PLAIN TIGER BUTTERFLY': {
         'common_name': 'Plain Tiger Butterfly',
         'species': 'Danaus chrysippus',
         'genus': 'Danaus',
@@ -89,7 +89,7 @@ taxonomy = {
         'phylum': 'Arthropoda',
         'kingdom': 'Animalia'
     },
-    'POTTER_WASP': {
+    'INDIAN POTTER WASP': {
         'common_name': 'Potter Wasp',
         'species': 'Delta pyriforme',
         'genus': 'Delta',
@@ -99,7 +99,7 @@ taxonomy = {
         'phylum': 'Arthropoda',
         'kingdom': 'Animalia'
     },
-    'SLENDER_MEADOW_KATYDID': {
+    'SLENDER MEADOW KATYDID': {
         'common_name': 'Slender Meadow Katydid',
         'species': 'Conocephalus fasciatus',
         'genus': 'Conocephalus',
@@ -109,7 +109,7 @@ taxonomy = {
         'phylum': 'Arthropoda',
         'kingdom': 'Animalia'
     },
-    'SUNDOWNER_MOTH': {
+    'SUNDOWNER MOTH': {
         'common_name': 'Sundowner Moth',
         'species': 'Spingomorpha chlorea',
         'genus': 'Spingomorpha',
@@ -119,7 +119,7 @@ taxonomy = {
         'phylum': 'Arthropoda',
         'kingdom': 'Animalia'
     },
-    'TROPICAL_TIGER_MOTH': {
+    'TROPICAL TIGER MOTH': {
         'common_name': 'Tropical Tiger Moth',
         'species': 'Asota caricae',
         'genus': 'Asota',
@@ -129,7 +129,7 @@ taxonomy = {
         'phylum': 'Arthropoda',
         'kingdom': 'Animalia'
     },
-    'WANDERING_GLIDER': {
+    'WANDERING GLIDER': {
         'common_name': 'Wandering Glider',
         'species': 'Pantala flavescens',
         'genus': 'Pantala',
@@ -234,7 +234,7 @@ def rule_based_identification(ans):
             user_answer = str(user_answer)
         return any(keyword.lower() in user_answer.lower() for keyword in keywords)
 
-    # WANDERING_GLIDER
+    # WANDERING GLIDER
     if (
         ans["wings_visible"] == "yes" and
         (ans["num_wings"] in ["4", "more", "unknown"]) and
@@ -246,9 +246,9 @@ def rule_based_identification(ans):
         (ans["antennae_present"] == "no" or ans["antennae_present"] == "unknown" or (ans["antennae_present"] == "yes" and ans["antennae_shape"] == "small")) and
         (contains_any(ans["eye_color"], ["dark", "red", "brown", "yellow", "green", "other"]) or ans["eye_color"] == "unknown")
     ):
-        return "WANDERING_GLIDER"
+        return "WANDERING GLIDER"
 
-    # COMMON_CROW_BUTTERFLY
+    # COMMON CROW BUTTERFLY
     if (
         ans["wings_visible"] == "yes" and
         (ans["num_wings"] in ["4", "2", "unknown"]) and
@@ -261,9 +261,9 @@ def rule_based_identification(ans):
         ans["antennae_present"] == "yes" and
         (ans["antennae_shape"] == "clubbed" or ans["antennae_shape"] == "unknown") and ans["antennae_color"] == "black"
     ):
-        return "COMMON_CROW_BUTTERFLY"
+        return "COMMON CROW BUTTERFLY"
 
-    # PLAIN_TIGER_BUTTERFLY
+    # PLAIN TIGER BUTTERFLY
     if (
         ans["wings_visible"] == "yes" and
         (ans["num_wings"] in ["4", "2", "unknown"]) and
@@ -275,9 +275,9 @@ def rule_based_identification(ans):
         (ans["num_legs"] in ["6", "unknown"]) and
         ans["antennae_present"] == "yes" and (ans["antennae_shape"] in ["clubbed", "other", "thread-like"]) and ans["antennae_color"] == "black"
     ):
-        return "PLAIN_TIGER_BUTTERFLY"
+        return "PLAIN TIGER BUTTERFLY"
 
-    # SUNDOWNER_MOTH
+    # SUNDOWNER MOTH
     if (
         ans["wings_visible"] == "yes" and
         (ans["num_wings"] in ["2", "4", "unknown"]) and
@@ -290,9 +290,9 @@ def rule_based_identification(ans):
         ans["antennae_present"] == "yes" and (ans["antennae_shape"] in ["thread-like", "other", "unknown"]) and
         (contains_any(ans["antennae_color"], ["brown", "black"]) or ans["antennae_color"] == "unknown")
     ):
-        return "SUNDOWNER_MOTH"
+        return "SUNDOWNER MOTH"
 
-    # TROPICAL_TIGER_MOTH
+    # TROPICAL TIGER MOTH
     if (
         ans["wings_visible"] == "yes" and
         (ans["num_wings"] in ["2", "4", "unknown"]) and
@@ -305,9 +305,9 @@ def rule_based_identification(ans):
         ans["antennae_present"] == "yes" and (ans["antennae_shape"] in ["thread-like", "other", "unknown"]) and
         (contains_any(ans["antennae_color"], ["black", "brown"]) or ans["antennae_color"] == "unknown")
     ):
-        return "TROPICAL_TIGER_MOTH"
+        return "TROPICAL TIGER MOTH"
 
-    # ORIENTAL_BEETLE
+    # ORIENTAL BEETLE
     if (
         (ans["wings_visible"] == "yes" or ans["wings_visible"] == "no") and # Wings may not be prominent
         (ans["num_wings"] in ["2", "unknown", "n/a"]) and # Hardened forewings cover hindwings, appearing as 2
@@ -320,9 +320,9 @@ def rule_based_identification(ans):
         ans["antennae_present"] == "yes" and (contains_any(ans["antennae_shape"], ["clubbed", "lamellate", "other"]) or ans["antennae_shape"] == "unknown") and
         (contains_any(ans["antennae_color"], ["brown", "black"]) or ans["antennae_color"] == "unknown")
     ):
-        return "ORIENTAL_BEETLE"
+        return "ORIENTAL BEETLE"
 
-    # INDIAN_RED_BUG
+    # INDIAN RED BUG
     if (
         (ans["wings_visible"] == "yes" or ans["wings_visible"] == "no") and # Some are apterous, others winged
         (ans["num_wings"] in ["2", "unknown", "n/a"]) and
@@ -334,9 +334,9 @@ def rule_based_identification(ans):
         (ans["num_legs"] in ["6", "unknown"]) and
         ans["antennae_present"] == "yes" and ans["antennae_shape"] == "thread-like" and ans["antennae_color"] == "black"
     ):
-        return "INDIAN_RED_BUG"
+        return "INDIAN RED BUG"
 
-    # BEAN_BUG
+    # INDIAN BEAN BUG
     if (
         (ans["wings_visible"] == "yes" or ans["wings_visible"] == "no") and # Usually winged, but not always visible
         (ans["num_wings"] in ["2", "unknown", "n/a"]) and
@@ -348,9 +348,9 @@ def rule_based_identification(ans):
         (ans["num_legs"] in ["6", "unknown"]) and
         ans["antennae_present"] == "yes" and ans["antennae_shape"] == "thread-like" and ans["antennae_color"] == "brown"
     ):
-        return "BEAN_BUG"
+        return "INDIAN BEAN BUG"
 
-    # POTTER_WASP
+    # INDIAN POTTER WASP
     if (
         ans["wings_visible"] == "yes" and
         (ans["num_wings"] in ["2", "4", "unknown"]) and # Appears as 2, technically 4
@@ -363,9 +363,9 @@ def rule_based_identification(ans):
         ans["antennae_present"] == "yes" and (contains_any(ans["antennae_shape"], ["bent", "elbowed", "other", "3 spikes"]) or ans["antennae_shape"] == "unknown") and # Added 3 spikes for robustness
         (contains_any(ans["antennae_color"], ["yellow", "black"]) or ans["antennae_color"] == "yellow" or ans["antennae_color"] == "unknown")
     ):
-        return "POTTER_WASP"
+        return "INDIAN POTTER WASP"
 
-    # SLENDER_MEADOW_KATYKID
+    # SLENDER MEADOW KATYDID
     if (
         ans["wings_visible"] == "yes" and
         (ans["num_wings"] in ["2", "unknown"]) and
@@ -378,7 +378,7 @@ def rule_based_identification(ans):
         ans["antennae_present"] == "yes" and (ans["antennae_shape"] in ["very long", "thread-like", "other", "unknown"]) and
         (contains_any(ans["antennae_color"], ["black", "brown"]) or ans["antennae_color"] == "unknown")
     ):
-        return "SLENDER_MEADOW_KATYKID"
+        return "SLENDER MEADOW KATDID"
     else:
        return "UNCERTAIN_SPECIES"
 
