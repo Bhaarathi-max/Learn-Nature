@@ -419,7 +419,7 @@ if uploaded_file is not None:
     img_resized = cv2.resize(img, (IMG_HEIGHT, IMG_WIDTH))
     img_array = np.expand_dims(img_resized, axis=0) / 255.0
 
-    predictions = model.predict(img_array)[0]
+    predictions = model.predict(img_array)
     initial_confidence = np.max(predictions)
     pred_index = np.argmax(predictions)
     initial_pred_class = class_names[pred_index]
