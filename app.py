@@ -23,6 +23,7 @@ IMG_HEIGHT = 224
 IMG_WIDTH = 224
 
 # --- Paths ---
+data
 model_path = "INSECT_CNN_FINAL.keras"
 
 # --- Load Model ---
@@ -398,7 +399,7 @@ def rule_based_identification(ans):
     ):
         return "SLENDER_MEADOW_KATYKID"
 
-    return "UNCERTAIN_SPECIES"
+return "UNCERTAIN_SPECIES"
 
 # --- Streamlit App Structure ---
 st.title("Insect Identification with AI and Human Clarification")
@@ -421,19 +422,20 @@ if uploaded_file is not None:
     predictions = model.predict(img_array)
     pred_index = np.argmax(predictions)
     initial_confidence = np.max(predictions)
+
     st.write("Predicted index:", pred_index)
-st.write("Total class names:", len(class_names))
-st.write("Total class names:", pred_index)
+    st.write("Total class names:", len(class_names))
 
 if pred_index < len(class_names):
     initial_pred_class = class_names[pred_index]
-else:
-    st.error("Index mismatch! Model predicted an index outside class list.")
-    st.stop()
 
     st.subheader("Initial AI Prediction:")
     st.write(f"**Predicted Species:** {initial_pred_class}")
     st.write(f"**Confidence:** {initial_confidence * 100:.2f}%")
+
+else:
+    st.error("Index mismatch! Model predicted an index outside class list.")
+    st.stop()
 
     # Logic for human clarification
     if initial_confidence < CONFIDENCE_THRESHOLD:
