@@ -6,16 +6,16 @@ import numpy as np
 import os
 import cv2
 class_names = [
-    'BEAN_BUG',
-    'COMMON_CROW_BUTTERFLY',
-    'INDIAN_RED_BUG',
-    'ORIENTAL_BEETLE',
-    'PLAIN_TIGER_BUTTERFLY',
-    'POTTER_WASP',
-    'SLENDER_MEADOW_KATYKID',
-    'SUNDOWNER_MOTH',
-    'TROPICAL_TIGER_MOTH',
-    'WANDERING_GLIDER']
+    'INDIAN BEAN BUG',
+    'COMMON CROW BUTTERFLY',
+    'INDIAN RED BUG',
+    'ORIENTAL BEETLE',
+    'PLAIN TIGER BUTTERFLY',
+    'INDIAN POTTER WASP',
+    'SLENDER MEADOW KATYKID',
+    'SUNDOWNER MOTH',
+    'TROPICAL TIGER MOTH',
+    'WANDERING GLIDER']
 
 # --- Global Variables ---
 CONFIDENCE_THRESHOLD = 0.95
@@ -384,13 +384,12 @@ def rule_based_identification(ans):
 
 # --- Streamlit App Structure ---
 st.title("Insect Identification with AI and Human Clarification")
-st.write("Upload an image of an insect, and our AI model will try to identify it. If the confidence is low, we'll ask for your help!")
 
-uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
+uploaded_file = st.file_uploader("Choose an image...", type=["jpg","jpeg","png"])
 
 if uploaded_file is not None:
+
     st.image(uploaded_file, caption="Uploaded Image", use_column_width=True)
-    st.write("")
     st.write("Classifying...")
 
     file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
@@ -404,56 +403,34 @@ if uploaded_file is not None:
     pred_index = np.argmax(predictions)
     initial_confidence = np.max(predictions)
 
-    st.write("Predicted index:", pred_index)
-    st.write("Total class names:", len(class_names))
-    st.write("model output shape:",predictions.shape)
-
-if pred_index < len(class_names):
     initial_pred_class = class_names[pred_index]
 
-    st.subheader("Initial AI Prediction:")
-    st.write(f"**Predicted Species:** {initial_pred_class}")
-    st.write(f"**Confidence:** {initial_confidence * 100:.2f}%")
-if initial_pred_class in taxonomy:
-    st.subheader("Taxonomic Classification")
+    st.write("Confidence:", initial_confidence)
 
-    for rank, value in taxonomy[initial_pred_class].items():
-        st.write(f"**{rank}:** {value}")
+    #  HITL TRIGGER FIRST
+    if initial_confidence < 0.95:
 
-else:
-    st.error("Index mismatch! Model predicted an index outside class list.")
-    st.stop()
-
-    # Logic for human clarification
-    if initial_confidence < CONFIDENCE_THRESHOLD:
-        st.warning("Low confidence prediction – Human clarification required.")
-        st.write("The AI needs your help to make a more accurate identification.")
+        st.warning("Low confidence — Human clarification required")
 
         user_answers = ask_questions_streamlit()
 
         if user_answers:
-            final_identified_species = rule_based_identification(user_answers)
-            st.subheader("Refined Identification (based on your input):")
-            if final_identified_species != "UNCERTAIN_SPECIES":
-                st.success(f"**{final_identified_species.replace('_', ' ').title()}**")
-                taxonomy_key = final_identified_species.upper()
-                if taxonomy_key in taxonomy:
-                    st.subheader("Taxonomic Hierarchy:")
-                    for level, value in taxonomy[taxonomy_key].items():
-                        st.write(f"  - **{level.replace('_', ' ').title()}:** {value}")
-                else:
-                    st.warning(f"Taxonomy information not found for '{final_identified_species.replace('_', ' ').title()}'")
-            else:
-                st.info("We couldn't confidently identify the species even with your input. More specific details might be needed.")
-    else:
-        st.success("High confidence prediction – Result accepted.")
-        st.subheader("Final Identified Species:")
-        st.success(f"**{initial_pred_class.replace('_', ' ').title()}**")
+            final_species = rule_based_identification(user_answers)
 
-        taxonomy_key = initial_pred_class.upper()
-        if taxonomy_key in taxonomy:
-            st.subheader("Taxonomic Hierarchy:")
-            for level, value in taxonomy[taxonomy_key].items():
-                st.write(f"  - **{level.replace('_', ' ').title()}:** {value}")
-        else:
-            st.warning(f"Taxonomy information not found for '{initial_pred_class.replace('_', ' ').title()}'")
+            st.subheader("Refined Identification")
+            st.success(final_species)
+
+    #  HIGH CONFIDENCE → show result
+    else:
+
+        st.subheader("AI Prediction")
+        st.write(f"Species: {initial_pred_class}")
+        st.write(f"Confidence: {initial_confidence*100:.2f}%")
+
+        # Taxonomy display
+        if initial_pred_class in taxonomy:
+
+            st.subheader("Taxonomic Classification")
+
+            for rank, value in taxonomy[initial_pred_class].items():
+                st.write(f"**{rank}:** {value}")
