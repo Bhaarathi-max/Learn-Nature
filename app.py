@@ -6,14 +6,6 @@ import numpy as np
 import os
 import cv2
 
-# --- Global Variables ---
-CONFIDENCE_THRESHOLD = 0.95
-IMG_HEIGHT = 224
-IMG_WIDTH = 224
-
-# --- Paths ---
-model_path = "INSECT_CNN_FINAL.keras"
-
 class_names = [
     'BEAN_BUG',
     'COMMON_CROW_BUTTERFLY',
@@ -25,6 +17,14 @@ class_names = [
     'SUNDOWNER_MOTH',
     'TROPICAL_TIGER_MOTH',
     'WANDERING_GLIDER']
+
+# --- Global Variables ---
+CONFIDENCE_THRESHOLD = 0.95
+IMG_HEIGHT = 224
+IMG_WIDTH = 224
+
+# --- Paths ---
+model_path = "INSECT_CNN_FINAL.keras"
 
 # --- Load Model ---
 @st.cache_resource
