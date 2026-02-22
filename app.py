@@ -398,7 +398,7 @@ def rule_based_identification(ans):
         (contains_any(ans["antennae_color"], ["black", "brown"]) or ans["antennae_color"] == "unknown")
     ):
         return "SLENDER_MEADOW_KATYKID"
-
+    else:
 return "UNCERTAIN_SPECIES"
 
 # --- Streamlit App Structure ---
