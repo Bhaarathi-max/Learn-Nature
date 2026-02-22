@@ -151,82 +151,112 @@ def ask_questions_streamlit():
 
     # Use a form to group questions and submit at once
     with st.form("clarification_form"):
+
+        # Q1
         st.session_state.qa_answers["wings_visible"] = st.radio(
             "Q1: Does the insect have *visible* wings or wing structures?",
-            options=["yes", "no", "unknown"],
+            options=["Select...", "yes", "no", "unknown"],
             key="wings_visible_q"
         )
 
         if st.session_state.qa_answers["wings_visible"] == "yes":
+
+            # Q2
             st.session_state.qa_answers["num_wings"] = st.radio(
                 "Q2: How many distinct wings are clearly visible? (Consider if forewings cover hindwings)",
-                options=["2", "4", "more", "unknown"],
+                options=["Select...", "2", "4", "more", "unknown"],
                 key="num_wings_q"
             )
+
+            # Q3
             st.session_state.qa_answers["transparent_wings"] = st.radio(
                 "Q3: Are the wings largely transparent/clear or mostly opaque/colored?",
-                options=["transparent", "opaque", "unknown"],
+                options=["Select...", "transparent", "opaque", "unknown"],
                 key="transparent_wings_q"
             )
-            st.session_state.qa_answers["wing_color_pattern"] = st.text_input(
-                "Q4: Describe the dominant wing color or pattern (e.g., 'black with white spots', 'orange with black border and white spots', 'clear', 'golden tint', 'other/unknown'):",
+
+            # Q4 (was text input → now radio with same options)
+            st.session_state.qa_answers["wing_color_pattern"] = st.radio(
+                "Q4: Describe the dominant wing color or pattern:",
+                options=[
+                    "black with white spots",
+                    "orange with black border and white spots",
+                    "clear",
+                    "golden tint",
+                    "other/unknown"
+                ],
                 key="wing_color_pattern_q"
-            ).lower()
+            )
+
+            # Q5
             st.session_state.qa_answers["resting_position"] = st.radio(
-                "Q5: How does it typically hold its wings at rest (e.g., 'flat over body', 'tent-like', 'vertically upright', 'outstretched', 'other/unknown')?",
-                options=['flat over body', 'tent-like', 'vertically upright', 'outstretched', 'other/unknown'],
+                "Q5: How does it typically hold its wings at rest?",
+                options=["Select...", 'flat over body', 'tent-like', 'vertically upright', 'outstretched', 'other/unknown'],
                 key="resting_position_q"
             )
+
         else:
             st.session_state.qa_answers["num_wings"] = "n/a"
             st.session_state.qa_answers["transparent_wings"] = "n/a"
             st.session_state.qa_answers["wing_color_pattern"] = "n/a"
             st.session_state.qa_answers["resting_position"] = "n/a"
 
-        st.session_state.qa_answers["body_color"] = st.text_input(
-            "Q6: What is the insect's dominant body color (e.g., 'red', 'brown', 'black', 'green', 'yellow', 'orange', 'other/unknown')?",
+        # Q6 (body color) → replaced text input with radio for common colors
+        st.session_state.qa_answers["body_color"] = st.radio(
+            "Q6: What is the insect's dominant body color?",
+            options=["Select...", "red", "brown", "black", "green", "yellow", "orange", "other/unknown"],
             key="body_color_q"
-        ).lower()
+        )
+
+        # Q7
         st.session_state.qa_answers["body_texture_appearance"] = st.radio(
-            "Q7: Is the body predominantly 'hard and shiny', 'soft', 'hairy/furry', 'elongated with narrow middle part' (wasp-waisted), or 'elongated and slender' (dragonfly-like)?",
-            options=['hard and shiny', 'soft', 'hairy/furry', 'elongated with narrow middle part', 'elongated and slender', 'other/unknown'],
+            "Q7: Is the body predominantly...",
+            options=["Select...", 'hard and shiny', 'soft', 'hairy/furry', 'elongated with narrow middle part', 'elongated and slender', 'other/unknown'],
             key="body_texture_appearance_q"
         )
+
+        # Q8
         st.session_state.qa_answers["num_legs"] = st.radio(
             "Q8: Number of visible legs",
-            options=["6", "8", "more", "n/a", "unknown"],
+            options=["Select...", "6", "8", "more", "n/a", "unknown"],
             key="num_legs_q"
         )
 
+        # Q9
         st.session_state.qa_answers["antennae_present"] = st.radio(
             "Q9: Are antennae clearly visible?",
-            options=["yes", "no", "unknown"],
+            options=["Select...", "yes", "no", "unknown"],
             key="antennae_present_q"
         )
 
         if st.session_state.qa_answers["antennae_present"] == "yes":
+            # Q10
             st.session_state.qa_answers["antennae_shape"] = st.radio(
                 "Q10: What is the shape of the antennae?",
-                options=["clubbed", "thread-like", "bent", "very long", "small", "3 spikes", "other", "unknown"],
+                options=["Select...", "clubbed", "thread-like", "bent", "very long", "small", "3 spikes", "other", "unknown"],
                 key="antennae_shape_q"
             )
-            st.session_state.qa_answers["antennae_color"] = st.text_input(
-                "Q11: What is the main color of the antennae (black/brown/orange/other/unknown):",
+            # Q11 (antennae color)
+            st.session_state.qa_answers["antennae_color"] = st.radio(
+                "Q11: What is the main color of the antennae?",
+                options=["Select...", "black", "brown", "orange", "other/unknown"],
                 key="antennae_color_q"
-            ).lower()
+            )
         else:
             st.session_state.qa_answers["antennae_shape"] = "n/a"
             st.session_state.qa_answers["antennae_color"] = "n/a"
 
-        st.session_state.qa_answers["eye_color"] = st.text_input(
-            "Q12: What is the predominant eye color (dark/red/yellow/brown/green/other/n/a/unknown):",
+        # Q12 (eye color)
+        st.session_state.qa_answers["eye_color"] = st.radio(
+            "Q12: What is the predominant eye color?",
+            options=["Select...", "dark", "red", "yellow", "brown", "green", "other", "n/a", "unknown"],
             key="eye_color_q"
-        ).lower()
+        )
 
         submitted = st.form_submit_button("Submit Clarification")
 
     return st.session_state.qa_answers if submitted else None
-
+    
 # --- rule_based_identification function (adapted to new question structure) ---
 def rule_based_identification(ans):
     def contains_any(user_answer, keywords):
@@ -384,53 +414,65 @@ def rule_based_identification(ans):
 
 # --- Streamlit App Structure ---
 st.title("Insect Identification with AI and Human Clarification")
+st.write("Upload an image of an insect. The AI will predict the species. If confidence is low, human clarification will be requested.")
 
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg","jpeg","png"])
 
 if uploaded_file is not None:
 
+    # Display uploaded image
     st.image(uploaded_file, caption="Uploaded Image", use_column_width=True)
     st.write("Classifying...")
 
+    # Convert uploaded image to array
     file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
     img = cv2.imdecode(file_bytes, 1)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-
     img_resized = cv2.resize(img, (IMG_HEIGHT, IMG_WIDTH))
     img_array = np.expand_dims(img_resized, axis=0) / 255.0
 
+    # Predict using model
     predictions = model.predict(img_array)
     pred_index = np.argmax(predictions)
     initial_confidence = np.max(predictions)
-
     initial_pred_class = class_names[pred_index]
 
-    st.write("Confidence:", initial_confidence)
+    st.write(f"Confidence: {initial_confidence*100:.2f}%")
 
-    #  HITL TRIGGER FIRST
+    #  HITL TRIGGER: All predictions < 95% confidence
     if initial_confidence < 0.95:
 
         st.warning("Low confidence — Human clarification required")
 
+        # Ask questions (your existing HITL function)
         user_answers = ask_questions_streamlit()
 
         if user_answers:
             final_species = rule_based_identification(user_answers)
-
             st.subheader("Refined Identification")
-            st.success(final_species)
+            st.success(final_species.title())
 
-    #  HIGH CONFIDENCE → show result
+            #  Display taxonomy for refined result
+            taxonomy_key = final_species.upper()
+            if taxonomy_key in taxonomy:
+                st.subheader("Taxonomic Classification")
+                for rank, value in taxonomy[taxonomy_key].items():
+                    st.write(f"**{rank}:** {value}")
+            else:
+                st.warning(f"Taxonomy information not found for '{final_species.title()}'")
+
+    #  HIGH confidence → direct display
     else:
 
         st.subheader("AI Prediction")
         st.write(f"Species: {initial_pred_class}")
         st.write(f"Confidence: {initial_confidence*100:.2f}%")
 
-        # Taxonomy display
-        if initial_pred_class in taxonomy:
-
+        #  Display taxonomy
+        taxonomy_key = initial_pred_class.upper()
+        if taxonomy_key in taxonomy:
             st.subheader("Taxonomic Classification")
-
-            for rank, value in taxonomy[initial_pred_class].items():
+            for rank, value in taxonomy[taxonomy_key].items():
                 st.write(f"**{rank}:** {value}")
+        else:
+            st.warning(f"Taxonomy information not found for '{initial_pred_class}'")
