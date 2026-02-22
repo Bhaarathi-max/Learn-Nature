@@ -399,7 +399,7 @@ def rule_based_identification(ans):
     ):
         return "SLENDER_MEADOW_KATYKID"
     else:
-return "UNCERTAIN_SPECIES"
+       return "UNCERTAIN_SPECIES"
 
 # --- Streamlit App Structure ---
 st.title("Insect Identification with AI and Human Clarification")
