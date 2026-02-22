@@ -23,7 +23,6 @@ IMG_HEIGHT = 224
 IMG_WIDTH = 224
 
 # --- Paths ---
-data
 model_path = "INSECT_CNN_FINAL.keras"
 
 # --- Load Model ---
