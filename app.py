@@ -404,6 +404,11 @@ if pred_index < len(class_names):
     st.subheader("Initial AI Prediction:")
     st.write(f"**Predicted Species:** {initial_pred_class}")
     st.write(f"**Confidence:** {initial_confidence * 100:.2f}%")
+if initial_pred_class in taxonomy:
+    st.subheader("Taxonomic Classification")
+
+    for rank, value in taxonomy[initial_pred_class].items():
+        st.write(f"**{rank}:** {value}")
 
 else:
     st.error("Index mismatch! Model predicted an index outside class list.")
