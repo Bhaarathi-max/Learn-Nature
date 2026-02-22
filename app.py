@@ -37,34 +37,6 @@ def load_keras_model():
 
 model = load_keras_model()
 
-# --- Dynamic Class Name Loading ---
-@st.cache_data
-def get_class_names():
-    if 'dataset_path' not in globals() or not os.path.exists(dataset_path):
-        st.error("Dataset path not found. Please ensure it's correctly set.")
-        return []
-
-    dummy_datagen = tf.keras.preprocessing.image.ImageDataGenerator(rescale=1./255)
-
-    try:
-        dummy_generator = dummy_datagen.flow_from_directory(
-            dataset_path,
-            target_size=(IMG_HEIGHT, IMG_WIDTH),
-            batch_size=1,
-            class_mode='categorical',
-            shuffle=False,
-            subset=None
-        )
-        class_indices = dummy_generator.class_indices
-        idx_to_class = {v: k for k, v in class_indices.items()}
-        class_names = [idx_to_class[i] for i in sorted(idx_to_class.keys())]
-        return class_names
-    except Exception as e:
-        st.error(f"Error generating class names from directory: {e}")
-        return []
-
-class_names = get_class_names()
-
 # --- Taxonomy Dictionary ---
 taxonomy = {
     'BEAN_BUG': {
