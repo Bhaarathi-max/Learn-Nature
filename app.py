@@ -12,8 +12,19 @@ IMG_HEIGHT = 224
 IMG_WIDTH = 224
 
 # --- Paths ---
-dataset_path = "/content/drive/MyDrive/CNN_Dataset"
 model_path = "INSECT_CNN_FINAL.keras"
+
+class_names = [
+    'BEAN_BUG',
+    'COMMON_CROW_BUTTERFLY',
+    'INDIAN_RED_BUG',
+    'ORIENTAL_BEETLE',
+    'PLAIN_TIGER_BUTTERFLY',
+    'POTTER_WASP',
+    'SLENDER_MEADOW_KATYKID',
+    'SUNDOWNER_MOTH',
+    'TROPICAL_TIGER_MOTH',
+    'WANDERING_GLIDER'
 
 # --- Load Model ---
 @st.cache_resource
