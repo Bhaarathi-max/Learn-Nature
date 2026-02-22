@@ -5,7 +5,6 @@ from tensorflow.keras.models import load_model
 import numpy as np
 import os
 import cv2
-
 class_names = [
     'BEAN_BUG',
     'COMMON_CROW_BUTTERFLY',
@@ -420,8 +419,8 @@ if uploaded_file is not None:
     img_array = np.expand_dims(img_resized, axis=0) / 255.0
 
     predictions = model.predict(img_array)
-    initial_confidence = np.max(predictions)
     pred_index = np.argmax(predictions)
+    initial_confidence = np.max(predictions)
     st.write("Predicted index:", pred_index)
 st.write("Total class names:", len(class_names))
 st.write("length of pred_index", len(pred_index))
