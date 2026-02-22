@@ -424,7 +424,7 @@ if uploaded_file is not None:
     pred_index = np.argmax(predictions)
     st.write("Predicted index:", pred_index)
 st.write("Total class names:", len(class_names))
-st.write("length of pred_index", len(pred_index)
+st.write("length of pred_index", len(pred_index))
 
 if pred_index < len(class_names):
     initial_pred_class = class_names[pred_index]
