@@ -424,6 +424,7 @@ if uploaded_file is not None:
 
     st.write("Predicted index:", pred_index)
     st.write("Total class names:", len(class_names))
+    st.write("model output shape:",predictions.shape)
 
 if pred_index < len(class_names):
     initial_pred_class = class_names[pred_index]
