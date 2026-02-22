@@ -422,7 +422,14 @@ if uploaded_file is not None:
     predictions = model.predict(img_array)
     initial_confidence = np.max(predictions)
     pred_index = np.argmax(predictions)
+    st.write("Predicted index:", pred_index)
+st.write("Total class names:", len(class_names))
+
+if pred_index < len(class_names):
     initial_pred_class = class_names[pred_index]
+else:
+    st.error("Index mismatch! Model predicted an index outside class list.")
+    st.stop()
 
     st.subheader("Initial AI Prediction:")
     st.write(f"**Predicted Species:** {initial_pred_class}")
