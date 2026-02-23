@@ -252,7 +252,7 @@ def ask_questions_streamlit():
             key="eye_color_q"
         )
 
-        if st.button("Submit Clarification"):
+     if st.button("Submit Clarification"):
     return st.session_state.qa_answers
 else:
     return None
