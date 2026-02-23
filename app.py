@@ -150,7 +150,6 @@ def ask_questions_streamlit():
         st.session_state.qa_answers = {}
 
     # Use a form to group questions and submit at once
-    with st.form("clarification_form"):
 
         # Q1
         st.session_state.qa_answers["wings_visible"] = st.radio(
@@ -253,9 +252,10 @@ def ask_questions_streamlit():
             key="eye_color_q"
         )
 
-        submitted = st.form_submit_button("Submit Clarification")
-
-    return st.session_state.qa_answers if submitted else None
+        if st.button("Submit Clarification"):
+    return st.session_state.qa_answers
+else:
+    return None
     
 # --- rule_based_identification function (adapted to new question structure) ---
 def rule_based_identification(ans):
