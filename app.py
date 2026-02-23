@@ -252,10 +252,10 @@ def ask_questions_streamlit():
             key="eye_color_q"
         )
 
-     if st.button("Submit Clarification"):
-    return st.session_state.qa_answers
-else:
-    return None
+        if st.button("Submit Clarification"):
+           return st.session_state.qa_answers
+        else:
+           return None
     
 # --- rule_based_identification function (adapted to new question structure) ---
 def rule_based_identification(ans):
