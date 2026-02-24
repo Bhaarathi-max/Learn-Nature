@@ -412,12 +412,12 @@ def rule_based_identification(ans):
     else:
        return "UNCERTAIN_SPECIES"
 
-# --- SESSION STATE INITIALIZATION ---
+    # --- SESSION STATE INITIALIZATION ---
     if "qa_answers" not in st.session_state:
-    st.session_state.qa_answers = {}
+       st.session_state.qa_answers = {}
 
     if "show_questions" not in st.session_state:
-    st.session_state.show_questions = False
+       st.session_state.show_questions = False
     
 # --- Streamlit App Structure ---
 st.title("Insect Identification with AI and Human Clarification")
