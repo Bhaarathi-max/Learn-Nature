@@ -449,17 +449,17 @@ if uploaded_file is not None:
    # ---------- HITL TRIGGER ----------
 
 # Initialize state variable once
-if "show_questions" not in st.session_state:
-    st.session_state.show_questions = False
+    if "show_questions" not in st.session_state:
+        st.session_state.show_questions = False
 
 
 # LOW CONFIDENCE → trigger questions
-if initial_confidence < 0.95:
+    if initial_confidence < 0.95:
 
-    st.warning("Low confidence — Human clarification required")
+        st.warning("Low confidence — Human clarification required")
 
     # turn ON questions permanently
-    st.session_state.show_questions = True
+        st.session_state.show_questions = True
 
 
 # ---------- QUESTION DISPLAY ----------
