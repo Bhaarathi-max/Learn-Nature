@@ -446,42 +446,48 @@ if uploaded_file is not None:
 
     st.write(f"Confidence: {initial_confidence*100:.2f}%")
 
-    #  HITL TRIGGER: All predictions < 95% confidence
-         if initial_confidence < 0.95:
+   # ---------- HITL TRIGGER ----------
+
+# Initialize state variable once
+if "show_questions" not in st.session_state:
+    st.session_state.show_questions = False
+
+
+# LOW CONFIDENCE → trigger questions
+if initial_confidence < 0.95:
 
     st.warning("Low confidence — Human clarification required")
 
-    # Turn ON question display
+    # turn ON questions permanently
     st.session_state.show_questions = True
+
+
+# ---------- QUESTION DISPLAY ----------
+if st.session_state.show_questions:
 
     user_answers = ask_questions_streamlit()
 
-        if user_answers:
-            final_species = rule_based_identification(user_answers)
-            st.subheader("Refined Identification")
-            st.success(final_species.title())
+    if user_answers is not None:
+        final_species = rule_based_identification(user_answers)
 
-            #  Display taxonomy for refined result
-            taxonomy_key = final_species.upper()
-            if taxonomy_key in taxonomy:
-                st.subheader("Taxonomic Classification")
-                for rank, value in taxonomy[taxonomy_key].items():
-                    st.write(f"**{rank}:** {value}")
-            else:
-                st.warning(f"Taxonomy information not found for '{final_species.title()}'")
+        st.subheader("Refined Identification")
+        st.success(final_species.title())
 
-    #  HIGH confidence → direct display
-    else:
-
-        st.subheader("AI Prediction")
-        st.write(f"Species: {initial_pred_class}")
-        st.write(f"Confidence: {initial_confidence*100:.2f}%")
-
-        #  Display taxonomy
-        taxonomy_key = initial_pred_class.upper()
+        taxonomy_key = final_species.upper()
         if taxonomy_key in taxonomy:
             st.subheader("Taxonomic Classification")
             for rank, value in taxonomy[taxonomy_key].items():
                 st.write(f"**{rank}:** {value}")
-        else:
-            st.warning(f"Taxonomy information not found for '{initial_pred_class}'")
+
+# ---------- HIGH CONFIDENCE ----------
+elif initial_confidence >= 0.95:
+
+    st.subheader("AI Prediction")
+    st.write(f"Species: {initial_pred_class}")
+    st.write(f"Confidence: {initial_confidence*100:.2f}%")
+
+    taxonomy_key = initial_pred_class.upper()
+    if taxonomy_key in taxonomy:
+        st.subheader("Taxonomic Classification")
+        for rank, value in taxonomy[taxonomy_key].items():
+            st.write(f"**{rank}:** {value}")
