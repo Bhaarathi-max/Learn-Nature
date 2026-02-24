@@ -412,6 +412,13 @@ def rule_based_identification(ans):
     else:
        return "UNCERTAIN_SPECIES"
 
+# --- SESSION STATE INITIALIZATION ---
+    if "qa_answers" not in st.session_state:
+    st.session_state.qa_answers = {}
+
+    if "show_questions" not in st.session_state:
+    st.session_state.show_questions = False
+    
 # --- Streamlit App Structure ---
 st.title("Insect Identification with AI and Human Clarification")
 st.write("Upload an image of an insect. The AI will predict the species. If confidence is low, human clarification will be requested.")
@@ -440,12 +447,14 @@ if uploaded_file is not None:
     st.write(f"Confidence: {initial_confidence*100:.2f}%")
 
     #  HITL TRIGGER: All predictions < 95% confidence
-    if initial_confidence < 0.95:
+         if initial_confidence < 0.95:
 
-        st.warning("Low confidence — Human clarification required")
+    st.warning("Low confidence — Human clarification required")
 
-        # Ask questions (your existing HITL function)
-        user_answers = ask_questions_streamlit()
+    # Turn ON question display
+    st.session_state.show_questions = True
+
+    user_answers = ask_questions_streamlit()
 
         if user_answers:
             final_species = rule_based_identification(user_answers)
