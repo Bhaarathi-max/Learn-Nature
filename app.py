@@ -438,12 +438,13 @@ if uploaded_file is not None:
     img_array = np.expand_dims(img_resized, axis=0) / 255.0
 
     # Predict using model
-    predictions = model.predict(img_array)
-    pred_index = np.argmax(predictions)
-    initial_confidence = np.max(predictions)
-    initial_pred_class = class_names[pred_index]
+   predictions = model.predict(img_array)
+   pred_index = np.argmax(predictions)
 
-    st.write(f"Confidence: {initial_confidence*100:.2f}%")
+   st.session_state.initial_confidence = float(np.max(predictions))
+   st.session_state.initial_pred_class = class_names[pred_index]
+
+   st.write(f"Confidence: {st.session_state.initial_confidence*100:.2f}%")
 
    # ---------- HITL TRIGGER ----------
 
@@ -453,7 +454,7 @@ if uploaded_file is not None:
 
 
 # LOW CONFIDENCE → trigger questions
-    if initial_confidence < 0.95:
+    if st.session_state.initial_confidence < 0.95:
 
         st.warning("Low confidence — Human clarification required")
 
@@ -479,16 +480,16 @@ if st.session_state.show_questions:
                 st.write(f"**{rank}:** {value}")
 
 # ---------- HIGH CONFIDENCE DIRECT DISPLAY ----------
-if initial_confidence >= 0.95:
+if st.session_state.initial_confidence >= 0.95:
 
     st.subheader("AI Prediction")
-    st.write(f"Species: {initial_pred_class}")
-    st.write(f"Confidence: {initial_confidence*100:.2f}%")
+    st.write(f"Species: {st.session_state.initial_pred_class}")
+    st.write(f"Confidence: {st.session_state.initial_confidence*100:.2f}%")
 
-    taxonomy_key = initial_pred_class.upper()
+    taxonomy_key = st.session_state.initial_pred_class.upper()
     if taxonomy_key in taxonomy:
         st.subheader("Taxonomic Classification")
         for rank, value in taxonomy[taxonomy_key].items():
             st.write(f"**{rank}:** {value}")
     else:
-        st.warning(f"Taxonomy information not found for '{initial_pred_class}'")
+        st.warning(f"Taxonomy information not found for '{st.session_state.initial_pred_class}'")
