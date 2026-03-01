@@ -438,13 +438,13 @@ if uploaded_file is not None:
     img_array = np.expand_dims(img_resized, axis=0) / 255.0
 
     # Predict using model
-   predictions = model.predict(img_array)
-   pred_index = np.argmax(predictions)
+    predictions = model.predict(img_array)
+    pred_index = np.argmax(predictions)
 
-   st.session_state.initial_confidence = float(np.max(predictions))
-   st.session_state.initial_pred_class = class_names[pred_index]
+    st.session_state.initial_confidence = float(np.max(predictions))
+    st.session_state.initial_pred_class = class_names[pred_index]
 
-   st.write(f"Confidence: {st.session_state.initial_confidence*100:.2f}%")
+    st.write(f"Confidence: {st.session_state.initial_confidence*100:.2f}%")
 
    # ---------- HITL TRIGGER ----------
 
