@@ -156,7 +156,7 @@ taxonomy = {
 
 # --- Streamlit-compatible ask_questions function ---
 def ask_questions_streamlit():
-    if st.session_state.show_question and initial_confidence <0.95:
+    if st.session_state.show_questions:
        st.subheader("Please answer the following questions to help identify the insect:")
 
     # Initialize answers in session state if not present
