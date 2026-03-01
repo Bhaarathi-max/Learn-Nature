@@ -468,6 +468,7 @@ if uploaded_file is not None:
 
     # turn ON questions permanently
         st.session_state.show_questions = True
+        st.rerun()
 
 # ---------- HIGH CONFIDENCE DIRECT DISPLAY ----------
 if st.session_state.initial_confidence >= 0.95:
