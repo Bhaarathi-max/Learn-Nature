@@ -478,8 +478,8 @@ if st.session_state.show_questions:
             for rank, value in taxonomy[taxonomy_key].items():
                 st.write(f"**{rank}:** {value}")
 
-# ---------- HIGH CONFIDENCE ----------
-elif initial_confidence >= 0.95:
+# ---------- HIGH CONFIDENCE DIRECT DISPLAY ----------
+if initial_confidence >= 0.95:
 
     st.subheader("AI Prediction")
     st.write(f"Species: {initial_pred_class}")
@@ -490,3 +490,5 @@ elif initial_confidence >= 0.95:
         st.subheader("Taxonomic Classification")
         for rank, value in taxonomy[taxonomy_key].items():
             st.write(f"**{rank}:** {value}")
+    else:
+        st.warning(f"Taxonomy information not found for '{initial_pred_class}'")
