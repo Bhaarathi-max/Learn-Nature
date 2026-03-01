@@ -484,21 +484,21 @@ if st.session_state.initial_confidence >= 0.95:
             st.write(f"**{rank}:** {value}")
 
 # ---------- QUESTION DISPLAY ----------
-        if st.session_state.show_questions:
-        
-            user_answers = ask_questions_streamlit()
-        
-            if user_answers is not None:
-                final_species = rule_based_identification(user_answers)
-        
-                st.subheader("Refined Identification")
-                st.success(final_species.title())
-        
-                taxonomy_key = final_species.upper()
-                if taxonomy_key in taxonomy:
-                    st.subheader("Taxonomic Classification")
-                    for rank, value in taxonomy[taxonomy_key].items():
-                        st.write(f"**{rank}:** {value}")
-        
-            else:
-                st.warning(f"Taxonomy information not found for '{st.session_state.initial_pred_class}'")
+if st.session_state.show_questions:
+
+    user_answers = ask_questions_streamlit()
+
+    if user_answers is not None:
+        final_species = rule_based_identification(user_answers)
+
+        st.subheader("Refined Identification")
+        st.success(final_species.title())
+
+        taxonomy_key = final_species.upper()
+        if taxonomy_key in taxonomy:
+            st.subheader("Taxonomic Classification")
+            for rank, value in taxonomy[taxonomy_key].items():
+                st.write(f"**{rank}:** {value}")
+
+    else:
+        st.warning(f"Taxonomy information not found for '{st.session_state.initial_pred_class}'")
