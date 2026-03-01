@@ -474,6 +474,8 @@ if st.session_state.show_questions:
 
     user_answers = ask_questions_streamlit()
 
+    st.stop()
+
     if user_answers is not None:
         final_species = rule_based_identification(user_answers)
 
