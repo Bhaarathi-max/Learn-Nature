@@ -499,6 +499,3 @@ if st.session_state.show_questions:
             st.subheader("Taxonomic Classification")
             for rank, value in taxonomy[taxonomy_key].items():
                 st.write(f"**{rank}:** {value}")
-
-    else:
-        st.warning(f"Taxonomy information not found for '{st.session_state.initial_pred_class}'")
