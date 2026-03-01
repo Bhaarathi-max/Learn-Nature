@@ -473,9 +473,9 @@ if uploaded_file is not None:
 # ---------- HIGH CONFIDENCE DIRECT DISPLAY ----------
 if st.session_state.initial_confidence >= 0.95:
 
-st.subheader("AI Prediction")
-st.write(f"Species: {st.session_state.initial_pred_class}")
-st.write(f"Confidence: {st.session_state.initial_confidence*100:.2f}%")
+   st.subheader("AI Prediction")
+   st.write(f"Species: {st.session_state.initial_pred_class}")
+   st.write(f"Confidence: {st.session_state.initial_confidence*100:.2f}%")
 
 taxonomy_key = st.session_state.initial_pred_class.upper()
     if taxonomy_key in taxonomy:
