@@ -17,12 +17,19 @@ class_names = [
     'TROPICAL TIGER MOTH',
     'WANDERING GLIDER']
 # --- SESSION STATE INITIALIZATION ---
+
 if "qa_answers" not in st.session_state:
-       st.session_state.qa_answers = {}
+    st.session_state.qa_answers = {}
 
 if "show_questions" not in st.session_state:
-       st.session_state.show_questions = False
+    st.session_state.show_questions = False
 
+if "initial_confidence" not in st.session_state:
+    st.session_state.initial_confidence = 0
+
+if "initial_pred_class" not in st.session_state:
+    st.session_state.initial_pred_class = ""
+    
 # --- Global Variables ---
 CONFIDENCE_THRESHOLD = 0.95
 IMG_HEIGHT = 224
