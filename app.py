@@ -471,7 +471,8 @@ if uploaded_file is not None:
         st.rerun()
 
 # ---------- HIGH CONFIDENCE DIRECT DISPLAY ----------
-    else st.session_state.initial_confidence >= 0.95:
+    else:
+        st.session_state.show_questions = False
     
         st.subheader("AI Prediction")
         st.write(f"Species: {st.session_state.initial_pred_class}")
