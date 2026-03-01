@@ -165,111 +165,111 @@ def ask_questions_streamlit():
 
     # Use a form to group questions and submit at once
 
-        # Q1
-        st.session_state.qa_answers["wings_visible"] = st.radio(
-            "Q1: Does the insect have *visible* wings or wing structures?",
-            options=["Select...", "yes", "no", "unknown"],
-            key="wings_visible_q"
-        )
-
-        if st.session_state.qa_answers["wings_visible"] == "yes":
-
-            # Q2
-            st.session_state.qa_answers["num_wings"] = st.radio(
-                "Q2: How many distinct wings are clearly visible? (Consider if forewings cover hindwings)",
-                options=["Select...", "2", "4", "more", "unknown"],
-                key="num_wings_q"
+            # Q1
+            st.session_state.qa_answers["wings_visible"] = st.radio(
+                "Q1: Does the insect have *visible* wings or wing structures?",
+                options=["Select...", "yes", "no", "unknown"],
+                key="wings_visible_q"
             )
-
-            # Q3
-            st.session_state.qa_answers["transparent_wings"] = st.radio(
-                "Q3: Are the wings largely transparent/clear or mostly opaque/colored?",
-                options=["Select...", "transparent", "opaque", "unknown"],
-                key="transparent_wings_q"
+    
+            if st.session_state.qa_answers["wings_visible"] == "yes":
+    
+                # Q2
+                st.session_state.qa_answers["num_wings"] = st.radio(
+                    "Q2: How many distinct wings are clearly visible? (Consider if forewings cover hindwings)",
+                    options=["Select...", "2", "4", "more", "unknown"],
+                    key="num_wings_q"
+                )
+    
+                # Q3
+                st.session_state.qa_answers["transparent_wings"] = st.radio(
+                    "Q3: Are the wings largely transparent/clear or mostly opaque/colored?",
+                    options=["Select...", "transparent", "opaque", "unknown"],
+                    key="transparent_wings_q"
+                )
+    
+                # Q4 (was text input → now radio with same options)
+                st.session_state.qa_answers["wing_color_pattern"] = st.radio(
+                    "Q4: Describe the dominant wing color or pattern:",
+                    options=[
+                        "black with white spots",
+                        "orange with black border and white spots",
+                        "clear",
+                        "golden tint",
+                        "other/unknown"
+                    ],
+                    key="wing_color_pattern_q"
+                )
+    
+                # Q5
+                st.session_state.qa_answers["resting_position"] = st.radio(
+                    "Q5: How does it typically hold its wings at rest?",
+                    options=["Select...", 'flat over body', 'tent-like', 'vertically upright', 'outstretched', 'other/unknown'],
+                    key="resting_position_q"
+                )
+    
+            else:
+                st.session_state.qa_answers["num_wings"] = "n/a"
+                st.session_state.qa_answers["transparent_wings"] = "n/a"
+                st.session_state.qa_answers["wing_color_pattern"] = "n/a"
+                st.session_state.qa_answers["resting_position"] = "n/a"
+    
+            # Q6 (body color) → replaced text input with radio for common colors
+            st.session_state.qa_answers["body_color"] = st.radio(
+                "Q6: What is the insect's dominant body color?",
+                options=["Select...", "red", "brown", "black", "green", "yellow", "orange", "other/unknown"],
+                key="body_color_q"
             )
-
-            # Q4 (was text input → now radio with same options)
-            st.session_state.qa_answers["wing_color_pattern"] = st.radio(
-                "Q4: Describe the dominant wing color or pattern:",
-                options=[
-                    "black with white spots",
-                    "orange with black border and white spots",
-                    "clear",
-                    "golden tint",
-                    "other/unknown"
-                ],
-                key="wing_color_pattern_q"
+    
+            # Q7
+            st.session_state.qa_answers["body_texture_appearance"] = st.radio(
+                "Q7: Is the body predominantly...",
+                options=["Select...", 'hard and shiny', 'soft', 'hairy/furry', 'elongated with narrow middle part', 'elongated and slender', 'other/unknown'],
+                key="body_texture_appearance_q"
             )
-
-            # Q5
-            st.session_state.qa_answers["resting_position"] = st.radio(
-                "Q5: How does it typically hold its wings at rest?",
-                options=["Select...", 'flat over body', 'tent-like', 'vertically upright', 'outstretched', 'other/unknown'],
-                key="resting_position_q"
+    
+            # Q8
+            st.session_state.qa_answers["num_legs"] = st.radio(
+                "Q8: Number of visible legs",
+                options=["Select...", "6", "8", "more", "n/a", "unknown"],
+                key="num_legs_q"
             )
-
-        else:
-            st.session_state.qa_answers["num_wings"] = "n/a"
-            st.session_state.qa_answers["transparent_wings"] = "n/a"
-            st.session_state.qa_answers["wing_color_pattern"] = "n/a"
-            st.session_state.qa_answers["resting_position"] = "n/a"
-
-        # Q6 (body color) → replaced text input with radio for common colors
-        st.session_state.qa_answers["body_color"] = st.radio(
-            "Q6: What is the insect's dominant body color?",
-            options=["Select...", "red", "brown", "black", "green", "yellow", "orange", "other/unknown"],
-            key="body_color_q"
-        )
-
-        # Q7
-        st.session_state.qa_answers["body_texture_appearance"] = st.radio(
-            "Q7: Is the body predominantly...",
-            options=["Select...", 'hard and shiny', 'soft', 'hairy/furry', 'elongated with narrow middle part', 'elongated and slender', 'other/unknown'],
-            key="body_texture_appearance_q"
-        )
-
-        # Q8
-        st.session_state.qa_answers["num_legs"] = st.radio(
-            "Q8: Number of visible legs",
-            options=["Select...", "6", "8", "more", "n/a", "unknown"],
-            key="num_legs_q"
-        )
-
-        # Q9
-        st.session_state.qa_answers["antennae_present"] = st.radio(
-            "Q9: Are antennae clearly visible?",
-            options=["Select...", "yes", "no", "unknown"],
-            key="antennae_present_q"
-        )
-
-        if st.session_state.qa_answers["antennae_present"] == "yes":
-            # Q10
-            st.session_state.qa_answers["antennae_shape"] = st.radio(
-                "Q10: What is the shape of the antennae?",
-                options=["Select...", "clubbed", "thread-like", "bent", "very long", "small", "3 spikes", "other", "unknown"],
-                key="antennae_shape_q"
+    
+            # Q9
+            st.session_state.qa_answers["antennae_present"] = st.radio(
+                "Q9: Are antennae clearly visible?",
+                options=["Select...", "yes", "no", "unknown"],
+                key="antennae_present_q"
             )
-            # Q11 (antennae color)
-            st.session_state.qa_answers["antennae_color"] = st.radio(
-                "Q11: What is the main color of the antennae?",
-                options=["Select...", "black", "brown", "orange", "other/unknown"],
-                key="antennae_color_q"
+    
+            if st.session_state.qa_answers["antennae_present"] == "yes":
+                # Q10
+                st.session_state.qa_answers["antennae_shape"] = st.radio(
+                    "Q10: What is the shape of the antennae?",
+                    options=["Select...", "clubbed", "thread-like", "bent", "very long", "small", "3 spikes", "other", "unknown"],
+                    key="antennae_shape_q"
+                )
+                # Q11 (antennae color)
+                st.session_state.qa_answers["antennae_color"] = st.radio(
+                    "Q11: What is the main color of the antennae?",
+                    options=["Select...", "black", "brown", "orange", "other/unknown"],
+                    key="antennae_color_q"
+                )
+            else:
+                st.session_state.qa_answers["antennae_shape"] = "n/a"
+                st.session_state.qa_answers["antennae_color"] = "n/a"
+    
+            # Q12 (eye color)
+            st.session_state.qa_answers["eye_color"] = st.radio(
+                "Q12: What is the predominant eye color?",
+                options=["Select...", "dark", "red", "yellow", "brown", "green", "other", "n/a", "unknown"],
+                key="eye_color_q"
             )
-        else:
-            st.session_state.qa_answers["antennae_shape"] = "n/a"
-            st.session_state.qa_answers["antennae_color"] = "n/a"
-
-        # Q12 (eye color)
-        st.session_state.qa_answers["eye_color"] = st.radio(
-            "Q12: What is the predominant eye color?",
-            options=["Select...", "dark", "red", "yellow", "brown", "green", "other", "n/a", "unknown"],
-            key="eye_color_q"
-        )
-
-        if st.button("Submit Clarification"):
-           return st.session_state.qa_answers
-        else:
-           return None
+    
+            if st.button("Submit Clarification"):
+               return st.session_state.qa_answers
+            else:
+               return None
     
 # --- rule_based_identification function (adapted to new question structure) ---
 def rule_based_identification(ans):
@@ -463,7 +463,7 @@ if uploaded_file is not None:
 
 # LOW CONFIDENCE → trigger questions
     if st.session_state.initial_confidence < 0.95:
-
+        st.write(f"Predicted: {st.session_state.initial_pred_class}")
         st.warning("Low confidence — Human clarification required")
 
     # turn ON questions permanently
