@@ -166,11 +166,11 @@ def ask_questions_streamlit():
     # Use a form to group questions and submit at once
 
             # Q1
-            st.session_state.qa_answers["wings_visible"] = st.radio(
-                "Q1: Does the insect have *visible* wings or wing structures?",
-                options=["Select...", "yes", "no", "unknown"],
-                key="wings_visible_q"
-            )
+                st.session_state.qa_answers["wings_visible"] = st.radio(
+                    "Q1: Does the insect have *visible* wings or wing structures?",
+                    options=["Select...", "yes", "no", "unknown"],
+                    key="wings_visible_q"
+                )
     
             if st.session_state.qa_answers["wings_visible"] == "yes":
     
