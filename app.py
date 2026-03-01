@@ -450,6 +450,7 @@ if uploaded_file is not None:
     pred_index = np.argmax(predictions)
 
     st.session_state.initial_confidence = float(np.max(predictions))
+    st.session_state.initial_confidence = initial_confidence
     st.session_state.initial_pred_class = class_names[pred_index]
 
     st.write(f"Confidence: {st.session_state.initial_confidence*100:.2f}%")
@@ -470,35 +471,34 @@ if uploaded_file is not None:
         st.session_state.show_questions = True
 
 # ---------- HIGH CONFIDENCE DIRECT DISPLAY ----------
-if st.session_state.initial_confidence >= 0.95:
+    if st.session_state.initial_confidence >= 0.95:
 
     st.subheader("AI Prediction")
     st.write(f"Species: {st.session_state.initial_pred_class}")
     st.write(f"Confidence: {st.session_state.initial_confidence*100:.2f}%")
 
     taxonomy_key = st.session_state.initial_pred_class.upper()
-    if taxonomy_key in taxonomy:
-        st.subheader("Taxonomic Classification")
-        for rank, value in taxonomy[taxonomy_key].items():
-            st.write(f"**{rank}:** {value}")
-
-# ---------- QUESTION DISPLAY ----------
-if st.session_state.show_questions:
-
-    user_answers = ask_questions_streamlit()
-    st.stop()
-
-    if user_answers is not None:
-        final_species = rule_based_identification(user_answers)
-
-        st.subheader("Refined Identification")
-        st.success(final_species.title())
-
-        taxonomy_key = final_species.upper()
         if taxonomy_key in taxonomy:
             st.subheader("Taxonomic Classification")
             for rank, value in taxonomy[taxonomy_key].items():
                 st.write(f"**{rank}:** {value}")
 
-    else:
-        st.warning(f"Taxonomy information not found for '{st.session_state.initial_pred_class}'")
+# ---------- QUESTION DISPLAY ----------
+        if st.session_state.show_questions:
+        
+            user_answers = ask_questions_streamlit()
+        
+            if user_answers is not None:
+                final_species = rule_based_identification(user_answers)
+        
+                st.subheader("Refined Identification")
+                st.success(final_species.title())
+        
+                taxonomy_key = final_species.upper()
+                if taxonomy_key in taxonomy:
+                    st.subheader("Taxonomic Classification")
+                    for rank, value in taxonomy[taxonomy_key].items():
+                        st.write(f"**{rank}:** {value}")
+        
+            else:
+                st.warning(f"Taxonomy information not found for '{st.session_state.initial_pred_class}'")
