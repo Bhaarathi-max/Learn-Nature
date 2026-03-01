@@ -267,9 +267,9 @@ def ask_questions_streamlit():
             )
     
             if st.button("Submit Clarification"):
-               return st.session_state.qa_answers
+                return st.session_state.qa_answers
             else:
-               return None
+                return None
     
 # --- rule_based_identification function (adapted to new question structure) ---
 def rule_based_identification(ans):
