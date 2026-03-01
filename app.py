@@ -450,7 +450,6 @@ if uploaded_file is not None:
     pred_index = np.argmax(predictions)
 
     st.session_state.initial_confidence = float(np.max(predictions))
-    st.session_state.initial_confidence = initial_confidence
     st.session_state.initial_pred_class = class_names[pred_index]
 
     st.write(f"Confidence: {st.session_state.initial_confidence*100:.2f}%")
