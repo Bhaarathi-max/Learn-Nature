@@ -16,6 +16,12 @@ class_names = [
     'SUNDOWNER MOTH',
     'TROPICAL TIGER MOTH',
     'WANDERING GLIDER']
+# --- SESSION STATE INITIALIZATION ---
+    if "qa_answers" not in st.session_state:
+       st.session_state.qa_answers = {}
+
+    if "show_questions" not in st.session_state:
+       st.session_state.show_questions = False
 
 # --- Global Variables ---
 CONFIDENCE_THRESHOLD = 0.95
@@ -411,13 +417,6 @@ def rule_based_identification(ans):
         return "SLENDER MEADOW KATDID"
     else:
        return "UNCERTAIN_SPECIES"
-
-    # --- SESSION STATE INITIALIZATION ---
-    if "qa_answers" not in st.session_state:
-       st.session_state.qa_answers = {}
-
-    if "show_questions" not in st.session_state:
-       st.session_state.show_questions = False
     
 # --- Streamlit App Structure ---
 st.title("Insect Identification with AI and Human Clarification")
