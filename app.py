@@ -17,10 +17,10 @@ class_names = [
     'TROPICAL TIGER MOTH',
     'WANDERING GLIDER']
 # --- SESSION STATE INITIALIZATION ---
-    if "qa_answers" not in st.session_state:
+if "qa_answers" not in st.session_state:
        st.session_state.qa_answers = {}
 
-    if "show_questions" not in st.session_state:
+if "show_questions" not in st.session_state:
        st.session_state.show_questions = False
 
 # --- Global Variables ---
